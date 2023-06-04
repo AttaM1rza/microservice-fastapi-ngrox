@@ -1,0 +1,21 @@
+version: '3'
+services:
+    fastapi:
+        build:
+        container_name: fastapi_c
+        volumes:
+          - ./:./
+        depends_on:
+            - ngrok
+        ports:
+          - 7777:80
+
+    ngrok:
+        image: ngrok/ngrok:alpine
+        environment:
+            NGROK_AUTHTOKEN: '...'
+        command: 'http yourwebserver:80'
+        ports:
+            - '4040:4040'
+        expose:
+            - '4040'
